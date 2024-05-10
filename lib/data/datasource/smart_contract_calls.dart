@@ -5,9 +5,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:web3dart/web3dart.dart';
 
-class SwapContractCalls {
-  SwapContractCalls();
+abstract class SwapContractCalls {
+  Future<bool> swapExactInputSingle(
+      {required BigInt amount, required String usersAddress});
+}
 
+class ISwapContractCalls implements SwapContractCalls {
   static String contractAddress = dotenv.env['CONTRACT_ADDRESS']!;
   static String rpcUrl = dotenv.env['MAINNET_RPC_URL']!;
 
@@ -27,7 +30,8 @@ class SwapContractCalls {
     return contracts;
   }
 
-  static Future<bool> swapExactInputSingle(
+  @override
+  Future<bool> swapExactInputSingle(
       {required BigInt amount, required String usersAddress}) async {
     try {
       final contract = await loadContract();

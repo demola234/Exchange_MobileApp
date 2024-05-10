@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:exchange_mobile/core/injector/injector.dart';
 import 'package:exchange_mobile/domain/repositories/repositories.dart';
 import 'package:exchange_mobile/presentation/notifier/states/swap_quote_state.dart';
@@ -24,11 +22,9 @@ class SwapQuoteController extends StateNotifier<SwapQuoteState> {
   Future<void> swapQuotes({required String amount}) async {
     state = const SwapQuoteState.loading();
 
-    final input = int.parse(amount) * pow(10, 18).toInt();
-
     final result = await _repository.getSwapQuote(
-        sellToken: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-        buyToken: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        sellToken: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        buyToken: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
         amount: amount.toString());
 
     result.fold((failure) {

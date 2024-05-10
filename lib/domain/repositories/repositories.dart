@@ -32,4 +32,8 @@ abstract class Repository {
       {required String sellToken,
       required String buyToken,
       required String amount});
+
+// Call Smart Contract
+  Future<Either<Failure, bool>> swapToken(
+      {required BigInt amount, required String userAddress});
 }

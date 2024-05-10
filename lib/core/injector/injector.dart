@@ -3,6 +3,7 @@ import 'package:exchange_mobile/core/api/dio_consumer.dart';
 import 'package:exchange_mobile/core/security/security.dart';
 import 'package:exchange_mobile/data/datasource/local_datasource.dart';
 import 'package:exchange_mobile/data/datasource/remote_datasource.dart';
+import 'package:exchange_mobile/data/datasource/smart_contract_calls.dart';
 import 'package:exchange_mobile/data/repositories/repositories.dart';
 import 'package:exchange_mobile/domain/repositories/repositories.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -16,6 +17,7 @@ Future<void> injector() async {
     () => IRepository(
       localDataSource: sl(),
       remoteDataSource: sl(),
+      swapContractCalls: sl(),
     ),
   );
 
@@ -34,7 +36,11 @@ Future<void> injector() async {
   // DataSources
   sl.registerLazySingleton<RemoteDataSource>(
     () => IRemoteDataSource(
-        apiConsumer: sl(),
-        ),
+      apiConsumer: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<SwapContractCalls>(
+    () => ISwapContractCalls(),
   );
 }

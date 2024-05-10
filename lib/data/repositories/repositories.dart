@@ -3,6 +3,7 @@ import 'package:exchange_mobile/core/error/error_exception.dart';
 import 'package:exchange_mobile/core/error/failure.dart';
 import 'package:exchange_mobile/data/datasource/local_datasource.dart';
 import 'package:exchange_mobile/data/datasource/remote_datasource.dart';
+import 'package:exchange_mobile/data/datasource/smart_contract_calls.dart';
 import 'package:exchange_mobile/domain/entities/generated_wallet.dart';
 import 'package:exchange_mobile/domain/entities/swap_details_quote.dart';
 import 'package:exchange_mobile/domain/entities/token_balance_entity.dart';
@@ -12,10 +13,12 @@ import 'package:exchange_mobile/domain/repositories/repositories.dart';
 class IRepository implements Repository {
   final RemoteDataSource remoteDataSource;
   final LocalDataSource localDataSource;
+  final SwapContractCalls swapContractCalls;
 
   IRepository({
     required this.remoteDataSource,
     required this.localDataSource,
+    required this.swapContractCalls,
   });
 
   @override
@@ -137,11 +140,26 @@ class IRepository implements Repository {
       {required String sellToken,
       required String buyToken,
       required String amount}) async {
-    print("SWAPPPPPP");
     try {
-      print("SWAPPPPPP");
       final response = await remoteDataSource.getSwapQuote(
           sellToken: sellToken, buyToken: buyToken, amount: amount);
+
+      return Right(response);
+    } on NotFoundException catch (exception) {
+      return Left(Failure.notFoundFailure(exception.message!));
+    } on ErrorException catch (exception) {
+      return Left(Failure.errorFailure(exception.message!));
+    } catch (e) {
+      return Left(Failure.errorFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> swapToken(
+      {required BigInt amount, required String userAddress}) async {
+    try {
+      final response = await swapContractCalls.swapExactInputSingle(
+          amount: amount, usersAddress: userAddress);
 
       return Right(response);
     } on NotFoundException catch (exception) {
