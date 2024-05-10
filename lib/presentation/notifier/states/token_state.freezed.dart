@@ -671,14 +671,14 @@ mixin _$EtheriumBalanceState {
 
 /// @nodoc
 abstract class $EtheriumBalanceStateCopyWith<$Res> {
-  factory $EtheriumBalanceStateCopyWith(EtheriumBalanceState value,
-          $Res Function(EtheriumBalanceState) then) =
-      _$EtheriumBalanceStateCopyWithImpl<$Res, EtheriumBalanceState>;
+  factory $EtheriumBalanceStateCopyWith(EthereumBalanceState value,
+          $Res Function(EthereumBalanceState) then) =
+      _$EtheriumBalanceStateCopyWithImpl<$Res, EthereumBalanceState>;
 }
 
 /// @nodoc
 class _$EtheriumBalanceStateCopyWithImpl<$Res,
-        $Val extends EtheriumBalanceState>
+        $Val extends EthereumBalanceState>
     implements $EtheriumBalanceStateCopyWith<$Res> {
   _$EtheriumBalanceStateCopyWithImpl(this._value, this._then);
 
@@ -802,7 +802,7 @@ class _$EtheriumBalanceStateInitialImpl implements EtheriumBalanceStateInitial {
   }
 }
 
-abstract class EtheriumBalanceStateInitial implements EtheriumBalanceState {
+abstract class EtheriumBalanceStateInitial implements EthereumBalanceState {
   const factory EtheriumBalanceStateInitial() =
       _$EtheriumBalanceStateInitialImpl;
 }
@@ -921,7 +921,7 @@ class _$EtheriumBalanceStateLoadingImpl implements EtheriumBalanceStateLoading {
   }
 }
 
-abstract class EtheriumBalanceStateLoading implements EtheriumBalanceState {
+abstract class EtheriumBalanceStateLoading implements EthereumBalanceState {
   const factory EtheriumBalanceStateLoading() =
       _$EtheriumBalanceStateLoadingImpl;
 }
@@ -1066,7 +1066,7 @@ class _$EtheriumBalanceStateSuccessImpl implements EtheriumBalanceStateSuccess {
   }
 }
 
-abstract class EtheriumBalanceStateSuccess implements EtheriumBalanceState {
+abstract class EtheriumBalanceStateSuccess implements EthereumBalanceState {
   const factory EtheriumBalanceStateSuccess(final String balance) =
       _$EtheriumBalanceStateSuccessImpl;
 
@@ -1217,7 +1217,7 @@ class _$EtheriumBalanceStateErrorImpl implements EtheriumBalanceStateError {
   }
 }
 
-abstract class EtheriumBalanceStateError implements EtheriumBalanceState {
+abstract class EtheriumBalanceStateError implements EthereumBalanceState {
   const factory EtheriumBalanceStateError(final String errorMessage) =
       _$EtheriumBalanceStateErrorImpl;
 

@@ -12,9 +12,9 @@ abstract class TokenState with _$TokenState {
 }
 
 @freezed
-abstract class EtheriumBalanceState with _$EtheriumBalanceState {
-  const factory EtheriumBalanceState.initial() = EtheriumBalanceStateInitial;
-  const factory EtheriumBalanceState.loading() = EtheriumBalanceStateLoading;
-  const factory EtheriumBalanceState.success(String balance) = EtheriumBalanceStateSuccess;
-  const factory EtheriumBalanceState.error(String errorMessage) = EtheriumBalanceStateError;
+abstract class EthereumBalanceState with _$EtheriumBalanceState {
+  const factory EthereumBalanceState.initial() = EtheriumBalanceStateInitial;
+  const factory EthereumBalanceState.loading() = EtheriumBalanceStateLoading;
+  const factory EthereumBalanceState.success(String balance) = EtheriumBalanceStateSuccess;
+  const factory EthereumBalanceState.error(String errorMessage) = EtheriumBalanceStateError;
 }

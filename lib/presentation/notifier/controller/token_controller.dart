@@ -20,10 +20,10 @@ class TokenController extends StateNotifier<TokenState> {
   Future<void> getTokenBalance() async {
     state = const TokenState.loading();
 
-    final ethresult = await sl<SecureStorage>().getWalletDetails();
+    final etherResult = await sl<SecureStorage>().getWalletDetails();
 
     final result = await _repository
-        .getTokenBalance(userAddress: ethresult!.publicKey!, tokenAddress: {
+        .getTokenBalance(userAddress: etherResult!.publicKey!, tokenAddress: {
       "token_addresses": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
     });
     result.fold((failure) {
@@ -34,30 +34,30 @@ class TokenController extends StateNotifier<TokenState> {
   }
 }
 
-final etheriumControllerProvider =
-    StateNotifierProvider<EtheriumNotifierController, EtheriumBalanceState>(
+final ethereumControllerProvider =
+    StateNotifierProvider<EthereumNotifierController, EthereumBalanceState>(
         (ref) {
-  return EtheriumNotifierController(repository);
+  return EthereumNotifierController(repository);
 });
 
-class EtheriumNotifierController extends StateNotifier<EtheriumBalanceState> {
-  EtheriumNotifierController(
+class EthereumNotifierController extends StateNotifier<EthereumBalanceState> {
+  EthereumNotifierController(
     this._repository,
-  ) : super(const EtheriumBalanceState.initial());
+  ) : super(const EthereumBalanceState.initial());
 
   final Repository _repository;
 
   Future<void> getTokenBalance() async {
-    state = const EtheriumBalanceState.loading();
+    state = const EthereumBalanceState.loading();
 
-    final ethresult = await sl<SecureStorage>().getWalletDetails();
+    final etherResult = await sl<SecureStorage>().getWalletDetails();
 
     final result =
-        await _repository.getEthBalance(userAddress: ethresult!.privateKey!);
+        await _repository.getEthBalance(userAddress: etherResult!.privateKey!);
     result.fold((failure) {
-      state = EtheriumBalanceState.error(failure.toString());
+      state = EthereumBalanceState.error(failure.toString());
     }, (data) {
-      state = EtheriumBalanceState.success(data);
+      state = EthereumBalanceState.success(data);
     });
   }
 }
