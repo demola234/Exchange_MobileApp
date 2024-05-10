@@ -11,6 +11,7 @@ environment:
 dependencies:
   bip32: ^2.0.0
   bip39: ^1.0.6
+  cached_network_image: ^3.3.1
   cupertino_icons: ^1.0.2
   curl_logger_dio_interceptor: ^1.0.0
   dartz: ^0.10.1
@@ -31,6 +32,7 @@ dependencies:
   google_fonts: ^6.2.1
   google_sign_in: ^6.2.1
   hex: ^0.2.0
+  http: ^1.2.1
   logger: ^2.2.0
   pretty_dio_logger: ^1.3.1
   web3dart: ^2.7.3

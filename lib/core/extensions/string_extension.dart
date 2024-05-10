@@ -12,6 +12,21 @@ extension ListSentenceExtension on String {
     return listPattern.hasMatch(this);
   }
 
+  // String shortenHexString(int startIndex, int endIndex) {
+  //   List<String> characters = split('');
+  //   for (int i = startIndex; i < endIndex; i++) {
+  //     characters[i] = '.';
+  //   }
+  //   return '${characters.join('')}...';
+  // }
+
+  String shortenHexString(int startIndex, int endIndex) {
+    String prefix = substring(0, startIndex);
+    String suffix = substring(endIndex);
+    String middleDots = '........';
+    return '$prefix$middleDots$suffix';
+  }
+
   String formattedListSentence() {
     String formattedSentence = trim();
     return formattedSentence.replaceAllMapped(

@@ -46,6 +46,18 @@ class WalletNotifierController extends StateNotifier<WalletState> {
     });
   }
 
+  Future<void> getWalletDetails() async {
+    state = const WalletState.generatingSeedPhrase();
+
+    final result = await _repository.getUserWalletSecrets();
+
+    result.fold((failure) {
+      state = WalletState.error(error: failure.toString());
+    }, (data) {
+      state = WalletState.generatedSeedPhrase(generatedWallet: data);
+    });
+  }
+
   Future<void> generateAccountFromMnemonics({
     required BuildContext context,
     required String mnemonics,

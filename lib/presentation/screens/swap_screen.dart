@@ -1,9 +1,16 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exchange_mobile/core/constants/color_constants.dart';
 import 'package:exchange_mobile/core/constants/fonts_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
+import 'package:exchange_mobile/core/extensions/string_extension.dart';
+import 'package:exchange_mobile/presentation/notifier/controller/login_controller.dart';
+import 'package:exchange_mobile/presentation/notifier/controller/swap_quote_controller.dart';
+import 'package:exchange_mobile/presentation/notifier/controller/wallet_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,7 +22,6 @@ class SwapScreen extends StatefulWidget {
 }
 
 class _SwapScreenState extends State<SwapScreen> {
-   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,20 +66,26 @@ class _SwapScreenState extends State<SwapScreen> {
                                 ),
                               ),
                               30.verticalSpace,
-                              const TokenSwapWidget(),
+                              const SwapTokenSwapWidget(),
                               20.verticalSpace,
-                              const Text(
-                                'Bal: 2,555 USDT',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
+                              Builder(builder: (context) {
+                                return Consumer(
+                                  builder: (_, WidgetRef ref, __) {
+                                    return const Text(
+                                      'Bal: 2,555 USDT',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    );
+                                  },
+                                );
+                              }),
                               5.verticalSpace,
                               const SpinnerBorder(),
                               5.verticalSpace,
-                              const TokenSwapWidget(),
+                              const BuyTokenSwapWidget(),
                               20.verticalSpace,
                               const Text(
                                 'Bal: 2,555 USDT',
@@ -241,71 +253,220 @@ class _SwapScreenState extends State<SwapScreen> {
   }
 }
 
-class TokenSwapWidget extends StatelessWidget {
-  const TokenSwapWidget({
+class SwapTokenSwapWidget extends ConsumerStatefulWidget {
+  const SwapTokenSwapWidget({
     super.key,
   });
 
+  @override
+  ConsumerState<SwapTokenSwapWidget> createState() => _TokenSwapWidgetState();
+}
+
+class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
+  final _exchangeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () async {
-            // String address = await EthereumAccountGenerator
-            //     .generateAccount();
-            // "must artist spatial debris village frozen sorry basket alien leave reunion exclude"
-
-            // await Ethereum().swapExactETHForTokens(
-            //     "ed663fe5049297bd13bad36d5d00ece0b912156a8ff77ecaf47487cd6b3e684b",
-            //     20000,
-            //     "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-            //     "0x85FD4d0D9aEE19B1ffb173b59bc47436eDb9C8D2",
-            //     898909989);
-          },
-          child: Container(
-              padding: PropertyConstant.innerUserPadding,
-              decoration: ShapeDecoration(
-                color: ColorConstant.darkShades2.withOpacity(0.24),
-                shape: RoundedRectangleBorder(
-                  borderRadius: PropertyConstant.containerBorderRadius,
-                ),
-              ),
-              child: Row(children: [
-                SvgPicture.asset("assets/icons/usdt.svg"),
-                8.horizontalSpace,
-                const Text(
-                  'USDT',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
+          onTap: () async {},
+          child: GestureDetector(
+            onTap: () {
+              // ref.read(etheriumControllerProvider.notifier).getTokenBalance();
+              // ref.read(tokenControllerProvider.notifier).getTokenBalance();
+              // ref.read(swapQuoteControllerProvider.notifier).swapQuotes();
+            },
+            child: Container(
+                padding: PropertyConstant.innerUserPadding,
+                decoration: ShapeDecoration(
+                  color: ColorConstant.darkShades2.withOpacity(0.24),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: PropertyConstant.containerBorderRadius,
                   ),
                 ),
-                15.horizontalSpace,
-                SvgPicture.asset('assets/icons/arrow_down.svg'),
-              ])),
-        ),
-        const Text(
-          '0.00',
-          style: TextStyle(
-            color: Color(0xFF626262),
-            fontSize: 24,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w600,
+                child: Row(children: [
+                  SvgPicture.asset("assets/icons/usdt.svg"),
+                  8.horizontalSpace,
+                  const Text(
+                    'USDT',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  15.horizontalSpace,
+                  SvgPicture.asset('assets/icons/arrow_down.svg'),
+                ])),
           ),
-        )
+        ),
+        SizedBox(
+          height: 60.sp,
+          width: 90.sp,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _exchangeController,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: const <TextInputFormatter>[
+                    // FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                  ],
+                  decoration: const InputDecoration(
+                    hintText: "0.00",
+                    border: InputBorder.none,
+                    isDense: true,
+                    hintStyle: TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: const TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  onChanged: (input) {
+                    ref
+                        .read(swapQuoteControllerProvider.notifier)
+                        .swapQuotes(amount: input);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Create Textfield similar to that of uniswap in flutter
       ],
     );
   }
 }
 
-class CurrentUsersWidget extends StatelessWidget {
+class BuyTokenSwapWidget extends ConsumerStatefulWidget {
+  const BuyTokenSwapWidget({
+    super.key,
+  });
+
+  @override
+  ConsumerState<BuyTokenSwapWidget> createState() => _BuyTokenSwapWidget();
+}
+
+class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget> {
+  final _exchangeController = TextEditingController();
+  final _buyexchangeController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: () async {},
+          child: GestureDetector(
+            onTap: () async {
+              // ref.read(etheriumControllerProvider.notifier).getTokenBalance();
+              // ref.read(tokenControllerProvider.notifier).getTokenBalance();
+              // ref.read(swapQuoteControllerProvider.notifier).swapQuotes();
+              // await SwapContractCalls.swapExactInputSingle();
+            },
+            child: Container(
+                padding: PropertyConstant.innerUserPadding,
+                decoration: ShapeDecoration(
+                  color: ColorConstant.darkShades2.withOpacity(0.24),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: PropertyConstant.containerBorderRadius,
+                  ),
+                ),
+                child: Row(children: [
+                  SvgPicture.asset("assets/icons/usdt.svg"),
+                  8.horizontalSpace,
+                  const Text(
+                    'USDT',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  15.horizontalSpace,
+                  SvgPicture.asset('assets/icons/arrow_down.svg'),
+                ])),
+          ),
+        ),
+        SizedBox(
+          height: 60.sp,
+          width: 90.sp,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Consumer(builder: (context, ref, child) {
+                  return TextField(
+                    controller: _buyexchangeController
+                      ..text = ref.watch(swapQuoteControllerProvider).maybeWhen(
+                            orElse: () => "0.0",
+                            success: (data) {
+                              return data.buyAmount.toString();
+                            },
+                          ),
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                    ],
+                    decoration: InputDecoration(
+                      hintText:
+                          ref.watch(swapQuoteControllerProvider).maybeWhen(
+                                orElse: () => "0.00",
+                                success: (data) {
+                                  final buy = data.buyAmount / pow(10, 18);
+                                  return buy.toString();
+                                },
+                              ),
+                      enabled: true,
+                      border: InputBorder.none,
+                      isDense: true,
+                      hintStyle: const TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: const TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    onChanged: (input) {
+                      // ref
+                      //     .read(swapQuoteControllerProvider.notifier)
+                      //     .swapQuotes(amount: input);
+                    },
+                  );
+                }),
+              ),
+            ],
+          ),
+        ),
+        // Create Textfield similar to that of uniswap in flutter
+      ],
+    );
+  }
+}
+
+class CurrentUsersWidget extends ConsumerStatefulWidget {
   const CurrentUsersWidget({
     super.key,
   });
 
+  @override
+  ConsumerState<CurrentUsersWidget> createState() => _CurrentUsersWidgetState();
+}
+
+class _CurrentUsersWidgetState extends ConsumerState<CurrentUsersWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -321,29 +482,68 @@ class CurrentUsersWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset('assets/icons/profile_circle.svg'),
+              Container(
+                height: 40.sp,
+                width: 40.sp,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: ref.watch(loginUserNotifierController).maybeWhen(
+                      orElse: () =>
+                          SvgPicture.asset('assets/icons/profile_circle.svg'),
+                      authenticated: (user) {
+                        return CachedNetworkImage(
+                          imageUrl: user.photoUrl ?? "",
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) => SvgPicture.asset(
+                              'assets/icons/profile_circle.svg'),
+                          errorWidget: (context, url, error) =>
+                              SvgPicture.asset(
+                                  'assets/icons/profile_circle.svg'),
+                        );
+                      },
+                    ),
+              ),
               5.horizontalSpace,
               Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'John Doe',
-                      style: FontConstant.appNormalFont.copyWith(
-                        color: ColorConstant.lightSystemColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Consumer(
+                      builder: (context, ref, child) {
+                        return Text(
+                            ref.watch(loginUserNotifierController).maybeWhen(
+                                orElse: () => "",
+                                authenticated: (user) => user.displayName!),
+                            style: FontConstant.appNormalFont.copyWith(
+                              color: ColorConstant.lightSystemColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                            ));
+                      },
                     ),
                     5.verticalSpace,
-                    Text(
-                      '8uyhh...9898',
-                      style: FontConstant.appNormalFont.copyWith(
-                        color: ColorConstant.lightSystemColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+                    Consumer(builder: (context, ref, child) {
+                      return Text(
+                        ref.watch(walletNotifierController).maybeWhen(
+                            orElse: () => "",
+                            generatedSeedPhrase: (user) =>
+                                user.publicKey!.shortenHexString(4, 37)),
+                        style: FontConstant.appNormalFont.copyWith(
+                          color: ColorConstant.lightSystemColor,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      );
+                    }),
                   ]),
               15.horizontalSpace,
               SvgPicture.asset('assets/icons/arrow_down.svg'),
@@ -418,18 +618,23 @@ class _SpinnerBorderState extends State<SpinnerBorder>
           children: [
             Positioned.fill(
               child: Center(
-                child: Container(
-                    width: widget.size - 10,
-                    height: widget.size,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF6FB9DA),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: SvgPicture.asset(
-                          "assets/icons/arrow_data_transfer.svg"),
-                    )),
+                child: GestureDetector(
+                  onTap: () {
+                    // SwapContractCalls.swapExactInputSingle();
+                  },
+                  child: Container(
+                      width: widget.size - 10,
+                      height: widget.size,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF6FB9DA),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: SvgPicture.asset(
+                            "assets/icons/arrow_data_transfer.svg"),
+                      )),
+                ),
               ),
             ),
             Center(

@@ -20,7 +20,7 @@ mixin _$LoginState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() authenticatingUser,
-    required TResult Function() authenticated,
+    required TResult Function(UserGoogleResponse userDetails) authenticated,
     required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$LoginState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? authenticatingUser,
-    TResult? Function()? authenticated,
+    TResult? Function(UserGoogleResponse userDetails)? authenticated,
     TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$LoginState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? authenticatingUser,
-    TResult Function()? authenticated,
+    TResult Function(UserGoogleResponse userDetails)? authenticated,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
@@ -126,7 +126,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() authenticatingUser,
-    required TResult Function() authenticated,
+    required TResult Function(UserGoogleResponse userDetails) authenticated,
     required TResult Function(String error) error,
   }) {
     return initial();
@@ -137,7 +137,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? authenticatingUser,
-    TResult? Function()? authenticated,
+    TResult? Function(UserGoogleResponse userDetails)? authenticated,
     TResult? Function(String error)? error,
   }) {
     return initial?.call();
@@ -148,7 +148,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? authenticatingUser,
-    TResult Function()? authenticated,
+    TResult Function(UserGoogleResponse userDetails)? authenticated,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -240,7 +240,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() authenticatingUser,
-    required TResult Function() authenticated,
+    required TResult Function(UserGoogleResponse userDetails) authenticated,
     required TResult Function(String error) error,
   }) {
     return authenticatingUser();
@@ -251,7 +251,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? authenticatingUser,
-    TResult? Function()? authenticated,
+    TResult? Function(UserGoogleResponse userDetails)? authenticated,
     TResult? Function(String error)? error,
   }) {
     return authenticatingUser?.call();
@@ -262,7 +262,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? authenticatingUser,
-    TResult Function()? authenticated,
+    TResult Function(UserGoogleResponse userDetails)? authenticated,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -319,6 +319,8 @@ abstract class _$$AuthenticatedImplCopyWith<$Res> {
   factory _$$AuthenticatedImplCopyWith(
           _$AuthenticatedImpl value, $Res Function(_$AuthenticatedImpl) then) =
       __$$AuthenticatedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UserGoogleResponse userDetails});
 }
 
 /// @nodoc
@@ -328,36 +330,61 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
   __$$AuthenticatedImplCopyWithImpl(
       _$AuthenticatedImpl _value, $Res Function(_$AuthenticatedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userDetails = null,
+  }) {
+    return _then(_$AuthenticatedImpl(
+      userDetails: null == userDetails
+          ? _value.userDetails
+          : userDetails // ignore: cast_nullable_to_non_nullable
+              as UserGoogleResponse,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$AuthenticatedImpl implements _Authenticated {
-  const _$AuthenticatedImpl();
+  const _$AuthenticatedImpl({required this.userDetails});
+
+  @override
+  final UserGoogleResponse userDetails;
 
   @override
   String toString() {
-    return 'LoginState.authenticated()';
+    return 'LoginState.authenticated(userDetails: $userDetails)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AuthenticatedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$AuthenticatedImpl &&
+            (identical(other.userDetails, userDetails) ||
+                other.userDetails == userDetails));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, userDetails);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AuthenticatedImplCopyWith<_$AuthenticatedImpl> get copyWith =>
+      __$$AuthenticatedImplCopyWithImpl<_$AuthenticatedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() authenticatingUser,
-    required TResult Function() authenticated,
+    required TResult Function(UserGoogleResponse userDetails) authenticated,
     required TResult Function(String error) error,
   }) {
-    return authenticated();
+    return authenticated(userDetails);
   }
 
   @override
@@ -365,10 +392,10 @@ class _$AuthenticatedImpl implements _Authenticated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? authenticatingUser,
-    TResult? Function()? authenticated,
+    TResult? Function(UserGoogleResponse userDetails)? authenticated,
     TResult? Function(String error)? error,
   }) {
-    return authenticated?.call();
+    return authenticated?.call(userDetails);
   }
 
   @override
@@ -376,12 +403,12 @@ class _$AuthenticatedImpl implements _Authenticated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? authenticatingUser,
-    TResult Function()? authenticated,
+    TResult Function(UserGoogleResponse userDetails)? authenticated,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated();
+      return authenticated(userDetails);
     }
     return orElse();
   }
@@ -425,7 +452,13 @@ class _$AuthenticatedImpl implements _Authenticated {
 }
 
 abstract class _Authenticated implements LoginState {
-  const factory _Authenticated() = _$AuthenticatedImpl;
+  const factory _Authenticated(
+      {required final UserGoogleResponse userDetails}) = _$AuthenticatedImpl;
+
+  UserGoogleResponse get userDetails;
+  @JsonKey(ignore: true)
+  _$$AuthenticatedImplCopyWith<_$AuthenticatedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -494,7 +527,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() authenticatingUser,
-    required TResult Function() authenticated,
+    required TResult Function(UserGoogleResponse userDetails) authenticated,
     required TResult Function(String error) error,
   }) {
     return error(this.error);
@@ -505,7 +538,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? authenticatingUser,
-    TResult? Function()? authenticated,
+    TResult? Function(UserGoogleResponse userDetails)? authenticated,
     TResult? Function(String error)? error,
   }) {
     return error?.call(this.error);
@@ -516,7 +549,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? authenticatingUser,
-    TResult Function()? authenticated,
+    TResult Function(UserGoogleResponse userDetails)? authenticated,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {

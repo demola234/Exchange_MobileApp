@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:exchange_mobile/core/components/overlay_loader.dart';
 import 'package:exchange_mobile/core/injector/injector.dart';
 import 'package:exchange_mobile/domain/repositories/repositories.dart';
@@ -9,7 +11,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class LoginControllerNotifier extends StateNotifier<LoginState> {
   LoginControllerNotifier(
     this._repository,
-  ) : super(const LoginState.initial());
+  ) : super(const LoginState.initial()) {
+    getUserDetails();
+  }
 
   final Repository _repository;
 
@@ -35,6 +39,20 @@ class LoginControllerNotifier extends StateNotifier<LoginState> {
       //   isSuccess: true,
       // );
       // state = LoginState.signUpSuccess(data: user);
+    });
+  }
+
+  // Get User Details
+  getUserDetails() async {
+    state = const LoginState.authenticatingUser();
+
+    final result = await _repository.getUserDetails();
+
+    result.fold((failure) {
+      state = LoginState.error(error: failure.toString());
+    }, (user) {
+      log(user.displayName!);
+      state = LoginState.authenticated(userDetails: user);
     });
   }
 }

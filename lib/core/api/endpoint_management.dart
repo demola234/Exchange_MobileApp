@@ -10,14 +10,23 @@ class EndpointManager {
   //Internal ConstConstructor
   EndpointManager._internal();
   //! Endpoint Manager base url for the API
-  static String baseUrl = dotenv.env['BASE_URL']!;
+  static String moralisUrl = dotenv.env['MORALIS_URL']!;
+  static String infuraUrl = dotenv.env['INFURA_URL']!;
+  static String infuraApiKey = dotenv.env['INFURA_API_KEY']!;
+  static String oxUrl = dotenv.env['OxAPI_URL']!;
 
   init() async {
     //
   }
 
-  //! Authentication
-  static String register = '$baseUrl/register';
+  //! Get Token Balance
+  static String tokenBalance(String address) =>
+      '$moralisUrl/wallets/$address/tokens?chain=eth';
+  //! Get ETH Balance
+  static String getEthBalance = '$infuraUrl/$infuraApiKey';
+
+  // !! Swap Qoute
+  static String getSwapQuote = '$oxUrl/quote';
 }
 
 class EndPointConstant {
@@ -28,8 +37,6 @@ class EndPointConstant {
 
   //Internal Constructor
   EndPointConstant._internal();
-
-  late String loginUrl, singUpUrl, returnAwbUrl, returnProcurementUrl;
 
   late Map<String, dynamic> defaultHeader;
 

@@ -68,7 +68,7 @@ class ButtonComponents extends StatelessWidget {
           Text(
             text,
             style: FontConstant.appNormalFont.copyWith(
-              color: textColor ?? ColorConstant.lightSystemColor,
+              color: textColor,
               fontSize: textSize ?? 16.sp,
               fontWeight: FontWeight.w800,
             ),
