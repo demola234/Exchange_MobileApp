@@ -616,7 +616,7 @@ abstract class Error implements TokenState {
 }
 
 /// @nodoc
-mixin _$EtheriumBalanceState {
+mixin _$EthereumBalanceState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -646,7 +646,7 @@ mixin _$EtheriumBalanceState {
   TResult map<TResult extends Object?>({
     required TResult Function(EtheriumBalanceStateInitial value) initial,
     required TResult Function(EtheriumBalanceStateLoading value) loading,
-    required TResult Function(EtheriumBalanceStateSuccess value) success,
+    required TResult Function(EthereumBalanceStateSuccess value) success,
     required TResult Function(EtheriumBalanceStateError value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -654,7 +654,7 @@ mixin _$EtheriumBalanceState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EtheriumBalanceStateInitial value)? initial,
     TResult? Function(EtheriumBalanceStateLoading value)? loading,
-    TResult? Function(EtheriumBalanceStateSuccess value)? success,
+    TResult? Function(EthereumBalanceStateSuccess value)? success,
     TResult? Function(EtheriumBalanceStateError value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -662,7 +662,7 @@ mixin _$EtheriumBalanceState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EtheriumBalanceStateInitial value)? initial,
     TResult Function(EtheriumBalanceStateLoading value)? loading,
-    TResult Function(EtheriumBalanceStateSuccess value)? success,
+    TResult Function(EthereumBalanceStateSuccess value)? success,
     TResult Function(EtheriumBalanceStateError value)? error,
     required TResult orElse(),
   }) =>
@@ -670,17 +670,17 @@ mixin _$EtheriumBalanceState {
 }
 
 /// @nodoc
-abstract class $EtheriumBalanceStateCopyWith<$Res> {
-  factory $EtheriumBalanceStateCopyWith(EthereumBalanceState value,
+abstract class $EthereumBalanceStateCopyWith<$Res> {
+  factory $EthereumBalanceStateCopyWith(EthereumBalanceState value,
           $Res Function(EthereumBalanceState) then) =
-      _$EtheriumBalanceStateCopyWithImpl<$Res, EthereumBalanceState>;
+      _$EthereumBalanceStateCopyWithImpl<$Res, EthereumBalanceState>;
 }
 
 /// @nodoc
-class _$EtheriumBalanceStateCopyWithImpl<$Res,
+class _$EthereumBalanceStateCopyWithImpl<$Res,
         $Val extends EthereumBalanceState>
-    implements $EtheriumBalanceStateCopyWith<$Res> {
-  _$EtheriumBalanceStateCopyWithImpl(this._value, this._then);
+    implements $EthereumBalanceStateCopyWith<$Res> {
+  _$EthereumBalanceStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -698,7 +698,7 @@ abstract class _$$EtheriumBalanceStateInitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$EtheriumBalanceStateInitialImplCopyWithImpl<$Res>
-    extends _$EtheriumBalanceStateCopyWithImpl<$Res,
+    extends _$EthereumBalanceStateCopyWithImpl<$Res,
         _$EtheriumBalanceStateInitialImpl>
     implements _$$EtheriumBalanceStateInitialImplCopyWith<$Res> {
   __$$EtheriumBalanceStateInitialImplCopyWithImpl(
@@ -714,7 +714,7 @@ class _$EtheriumBalanceStateInitialImpl implements EtheriumBalanceStateInitial {
 
   @override
   String toString() {
-    return 'EtheriumBalanceState.initial()';
+    return 'EthereumBalanceState.initial()';
   }
 
   @override
@@ -769,7 +769,7 @@ class _$EtheriumBalanceStateInitialImpl implements EtheriumBalanceStateInitial {
   TResult map<TResult extends Object?>({
     required TResult Function(EtheriumBalanceStateInitial value) initial,
     required TResult Function(EtheriumBalanceStateLoading value) loading,
-    required TResult Function(EtheriumBalanceStateSuccess value) success,
+    required TResult Function(EthereumBalanceStateSuccess value) success,
     required TResult Function(EtheriumBalanceStateError value) error,
   }) {
     return initial(this);
@@ -780,7 +780,7 @@ class _$EtheriumBalanceStateInitialImpl implements EtheriumBalanceStateInitial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EtheriumBalanceStateInitial value)? initial,
     TResult? Function(EtheriumBalanceStateLoading value)? loading,
-    TResult? Function(EtheriumBalanceStateSuccess value)? success,
+    TResult? Function(EthereumBalanceStateSuccess value)? success,
     TResult? Function(EtheriumBalanceStateError value)? error,
   }) {
     return initial?.call(this);
@@ -791,7 +791,7 @@ class _$EtheriumBalanceStateInitialImpl implements EtheriumBalanceStateInitial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EtheriumBalanceStateInitial value)? initial,
     TResult Function(EtheriumBalanceStateLoading value)? loading,
-    TResult Function(EtheriumBalanceStateSuccess value)? success,
+    TResult Function(EthereumBalanceStateSuccess value)? success,
     TResult Function(EtheriumBalanceStateError value)? error,
     required TResult orElse(),
   }) {
@@ -817,7 +817,7 @@ abstract class _$$EtheriumBalanceStateLoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$EtheriumBalanceStateLoadingImplCopyWithImpl<$Res>
-    extends _$EtheriumBalanceStateCopyWithImpl<$Res,
+    extends _$EthereumBalanceStateCopyWithImpl<$Res,
         _$EtheriumBalanceStateLoadingImpl>
     implements _$$EtheriumBalanceStateLoadingImplCopyWith<$Res> {
   __$$EtheriumBalanceStateLoadingImplCopyWithImpl(
@@ -833,7 +833,7 @@ class _$EtheriumBalanceStateLoadingImpl implements EtheriumBalanceStateLoading {
 
   @override
   String toString() {
-    return 'EtheriumBalanceState.loading()';
+    return 'EthereumBalanceState.loading()';
   }
 
   @override
@@ -888,7 +888,7 @@ class _$EtheriumBalanceStateLoadingImpl implements EtheriumBalanceStateLoading {
   TResult map<TResult extends Object?>({
     required TResult Function(EtheriumBalanceStateInitial value) initial,
     required TResult Function(EtheriumBalanceStateLoading value) loading,
-    required TResult Function(EtheriumBalanceStateSuccess value) success,
+    required TResult Function(EthereumBalanceStateSuccess value) success,
     required TResult Function(EtheriumBalanceStateError value) error,
   }) {
     return loading(this);
@@ -899,7 +899,7 @@ class _$EtheriumBalanceStateLoadingImpl implements EtheriumBalanceStateLoading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EtheriumBalanceStateInitial value)? initial,
     TResult? Function(EtheriumBalanceStateLoading value)? loading,
-    TResult? Function(EtheriumBalanceStateSuccess value)? success,
+    TResult? Function(EthereumBalanceStateSuccess value)? success,
     TResult? Function(EtheriumBalanceStateError value)? error,
   }) {
     return loading?.call(this);
@@ -910,7 +910,7 @@ class _$EtheriumBalanceStateLoadingImpl implements EtheriumBalanceStateLoading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EtheriumBalanceStateInitial value)? initial,
     TResult Function(EtheriumBalanceStateLoading value)? loading,
-    TResult Function(EtheriumBalanceStateSuccess value)? success,
+    TResult Function(EthereumBalanceStateSuccess value)? success,
     TResult Function(EtheriumBalanceStateError value)? error,
     required TResult orElse(),
   }) {
@@ -927,23 +927,23 @@ abstract class EtheriumBalanceStateLoading implements EthereumBalanceState {
 }
 
 /// @nodoc
-abstract class _$$EtheriumBalanceStateSuccessImplCopyWith<$Res> {
-  factory _$$EtheriumBalanceStateSuccessImplCopyWith(
-          _$EtheriumBalanceStateSuccessImpl value,
-          $Res Function(_$EtheriumBalanceStateSuccessImpl) then) =
-      __$$EtheriumBalanceStateSuccessImplCopyWithImpl<$Res>;
+abstract class _$$EthereumBalanceStateSuccessImplCopyWith<$Res> {
+  factory _$$EthereumBalanceStateSuccessImplCopyWith(
+          _$EthereumBalanceStateSuccessImpl value,
+          $Res Function(_$EthereumBalanceStateSuccessImpl) then) =
+      __$$EthereumBalanceStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String balance});
 }
 
 /// @nodoc
-class __$$EtheriumBalanceStateSuccessImplCopyWithImpl<$Res>
-    extends _$EtheriumBalanceStateCopyWithImpl<$Res,
-        _$EtheriumBalanceStateSuccessImpl>
-    implements _$$EtheriumBalanceStateSuccessImplCopyWith<$Res> {
-  __$$EtheriumBalanceStateSuccessImplCopyWithImpl(
-      _$EtheriumBalanceStateSuccessImpl _value,
-      $Res Function(_$EtheriumBalanceStateSuccessImpl) _then)
+class __$$EthereumBalanceStateSuccessImplCopyWithImpl<$Res>
+    extends _$EthereumBalanceStateCopyWithImpl<$Res,
+        _$EthereumBalanceStateSuccessImpl>
+    implements _$$EthereumBalanceStateSuccessImplCopyWith<$Res> {
+  __$$EthereumBalanceStateSuccessImplCopyWithImpl(
+      _$EthereumBalanceStateSuccessImpl _value,
+      $Res Function(_$EthereumBalanceStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -951,7 +951,7 @@ class __$$EtheriumBalanceStateSuccessImplCopyWithImpl<$Res>
   $Res call({
     Object? balance = null,
   }) {
-    return _then(_$EtheriumBalanceStateSuccessImpl(
+    return _then(_$EthereumBalanceStateSuccessImpl(
       null == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
@@ -962,22 +962,22 @@ class __$$EtheriumBalanceStateSuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EtheriumBalanceStateSuccessImpl implements EtheriumBalanceStateSuccess {
-  const _$EtheriumBalanceStateSuccessImpl(this.balance);
+class _$EthereumBalanceStateSuccessImpl implements EthereumBalanceStateSuccess {
+  const _$EthereumBalanceStateSuccessImpl(this.balance);
 
   @override
   final String balance;
 
   @override
   String toString() {
-    return 'EtheriumBalanceState.success(balance: $balance)';
+    return 'EthereumBalanceState.success(balance: $balance)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EtheriumBalanceStateSuccessImpl &&
+            other is _$EthereumBalanceStateSuccessImpl &&
             (identical(other.balance, balance) || other.balance == balance));
   }
 
@@ -987,9 +987,9 @@ class _$EtheriumBalanceStateSuccessImpl implements EtheriumBalanceStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EtheriumBalanceStateSuccessImplCopyWith<_$EtheriumBalanceStateSuccessImpl>
-      get copyWith => __$$EtheriumBalanceStateSuccessImplCopyWithImpl<
-          _$EtheriumBalanceStateSuccessImpl>(this, _$identity);
+  _$$EthereumBalanceStateSuccessImplCopyWith<_$EthereumBalanceStateSuccessImpl>
+      get copyWith => __$$EthereumBalanceStateSuccessImplCopyWithImpl<
+          _$EthereumBalanceStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1033,7 +1033,7 @@ class _$EtheriumBalanceStateSuccessImpl implements EtheriumBalanceStateSuccess {
   TResult map<TResult extends Object?>({
     required TResult Function(EtheriumBalanceStateInitial value) initial,
     required TResult Function(EtheriumBalanceStateLoading value) loading,
-    required TResult Function(EtheriumBalanceStateSuccess value) success,
+    required TResult Function(EthereumBalanceStateSuccess value) success,
     required TResult Function(EtheriumBalanceStateError value) error,
   }) {
     return success(this);
@@ -1044,7 +1044,7 @@ class _$EtheriumBalanceStateSuccessImpl implements EtheriumBalanceStateSuccess {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EtheriumBalanceStateInitial value)? initial,
     TResult? Function(EtheriumBalanceStateLoading value)? loading,
-    TResult? Function(EtheriumBalanceStateSuccess value)? success,
+    TResult? Function(EthereumBalanceStateSuccess value)? success,
     TResult? Function(EtheriumBalanceStateError value)? error,
   }) {
     return success?.call(this);
@@ -1055,7 +1055,7 @@ class _$EtheriumBalanceStateSuccessImpl implements EtheriumBalanceStateSuccess {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EtheriumBalanceStateInitial value)? initial,
     TResult Function(EtheriumBalanceStateLoading value)? loading,
-    TResult Function(EtheriumBalanceStateSuccess value)? success,
+    TResult Function(EthereumBalanceStateSuccess value)? success,
     TResult Function(EtheriumBalanceStateError value)? error,
     required TResult orElse(),
   }) {
@@ -1066,13 +1066,13 @@ class _$EtheriumBalanceStateSuccessImpl implements EtheriumBalanceStateSuccess {
   }
 }
 
-abstract class EtheriumBalanceStateSuccess implements EthereumBalanceState {
-  const factory EtheriumBalanceStateSuccess(final String balance) =
-      _$EtheriumBalanceStateSuccessImpl;
+abstract class EthereumBalanceStateSuccess implements EthereumBalanceState {
+  const factory EthereumBalanceStateSuccess(final String balance) =
+      _$EthereumBalanceStateSuccessImpl;
 
   String get balance;
   @JsonKey(ignore: true)
-  _$$EtheriumBalanceStateSuccessImplCopyWith<_$EtheriumBalanceStateSuccessImpl>
+  _$$EthereumBalanceStateSuccessImplCopyWith<_$EthereumBalanceStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1088,7 +1088,7 @@ abstract class _$$EtheriumBalanceStateErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$EtheriumBalanceStateErrorImplCopyWithImpl<$Res>
-    extends _$EtheriumBalanceStateCopyWithImpl<$Res,
+    extends _$EthereumBalanceStateCopyWithImpl<$Res,
         _$EtheriumBalanceStateErrorImpl>
     implements _$$EtheriumBalanceStateErrorImplCopyWith<$Res> {
   __$$EtheriumBalanceStateErrorImplCopyWithImpl(
@@ -1120,7 +1120,7 @@ class _$EtheriumBalanceStateErrorImpl implements EtheriumBalanceStateError {
 
   @override
   String toString() {
-    return 'EtheriumBalanceState.error(errorMessage: $errorMessage)';
+    return 'EthereumBalanceState.error(errorMessage: $errorMessage)';
   }
 
   @override
@@ -1184,7 +1184,7 @@ class _$EtheriumBalanceStateErrorImpl implements EtheriumBalanceStateError {
   TResult map<TResult extends Object?>({
     required TResult Function(EtheriumBalanceStateInitial value) initial,
     required TResult Function(EtheriumBalanceStateLoading value) loading,
-    required TResult Function(EtheriumBalanceStateSuccess value) success,
+    required TResult Function(EthereumBalanceStateSuccess value) success,
     required TResult Function(EtheriumBalanceStateError value) error,
   }) {
     return error(this);
@@ -1195,7 +1195,7 @@ class _$EtheriumBalanceStateErrorImpl implements EtheriumBalanceStateError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EtheriumBalanceStateInitial value)? initial,
     TResult? Function(EtheriumBalanceStateLoading value)? loading,
-    TResult? Function(EtheriumBalanceStateSuccess value)? success,
+    TResult? Function(EthereumBalanceStateSuccess value)? success,
     TResult? Function(EtheriumBalanceStateError value)? error,
   }) {
     return error?.call(this);
@@ -1206,7 +1206,7 @@ class _$EtheriumBalanceStateErrorImpl implements EtheriumBalanceStateError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EtheriumBalanceStateInitial value)? initial,
     TResult Function(EtheriumBalanceStateLoading value)? loading,
-    TResult Function(EtheriumBalanceStateSuccess value)? success,
+    TResult Function(EthereumBalanceStateSuccess value)? success,
     TResult Function(EtheriumBalanceStateError value)? error,
     required TResult orElse(),
   }) {

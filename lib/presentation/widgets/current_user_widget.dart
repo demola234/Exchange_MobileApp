@@ -21,6 +21,12 @@ class CurrentUsersWidget extends ConsumerStatefulWidget {
 
 class _CurrentUsersWidgetState extends ConsumerState<CurrentUsersWidget> {
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ref.read(walletNotifierController.notifier).getWalletDetails();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         padding: PropertyConstant.innerUserPadding,

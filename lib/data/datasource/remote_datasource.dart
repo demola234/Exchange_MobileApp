@@ -146,7 +146,7 @@ class IRemoteDataSource implements RemoteDataSource {
         // params should be a Map<String, dynamic> were tokenAddress is the key and the value is the address key is always token_addresses
         params: {
           "token_addresses%5B0%5D":
-              "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+              "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
           "token_addresses%5B1%5D": tokenAddress!.values.first.toString(),
         },
         headers: {

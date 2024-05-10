@@ -49,8 +49,6 @@ class ButtonComponents extends StatelessWidget {
             ),
         animationDuration: const Duration(milliseconds: 500),
         fixedSize: fixedSize ?? Size(context.screenWidth() - 20, 56.sp),
-
-        // minimumSize: const Size(double.infinity, 45),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +58,6 @@ class ButtonComponents extends StatelessWidget {
               icon!,
               height: 16.sp,
               width: 16.sp,
-              // theme: SvgTheme(currentColor: textColor ?? ),
             )
           else
             const SizedBox(),

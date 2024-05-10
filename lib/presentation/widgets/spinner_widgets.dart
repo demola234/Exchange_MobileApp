@@ -1,9 +1,12 @@
 import 'dart:math';
 
+import 'package:exchange_mobile/presentation/notifier/controller/token_controller.dart';
+import 'package:exchange_mobile/presentation/notifier/controller/token_swap_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SpinnerBorder extends StatefulWidget {
+class SpinnerBorder extends ConsumerStatefulWidget {
   final double size;
   final Color color;
   final double spinnerWidth;
@@ -16,11 +19,11 @@ class SpinnerBorder extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SpinnerBorderState createState() => _SpinnerBorderState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SpinnerBorderState();
 }
 
-class _SpinnerBorderState extends State<SpinnerBorder>
-    with SingleTickerProviderStateMixin {
+class _SpinnerBorderState extends ConsumerState<SpinnerBorder>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -30,7 +33,7 @@ class _SpinnerBorderState extends State<SpinnerBorder>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
-    )..repeat();
+    );
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
   }
 
@@ -49,32 +52,42 @@ class _SpinnerBorderState extends State<SpinnerBorder>
           children: [
             Positioned.fill(
               child: Center(
-                child: GestureDetector(
-                  onTap: () {
-                    // SwapContractCalls.swapExactInputSingle();
-                  },
-                  child: Container(
-                      width: widget.size - 10,
-                      height: widget.size,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF6FB9DA),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: SvgPicture.asset(
-                            "assets/icons/arrow_data_transfer.svg"),
-                      )),
-                ),
+                child: Container(
+                    width: widget.size - 10,
+                    height: widget.size,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF6FB9DA),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: SvgPicture.asset(
+                          "assets/icons/arrow_data_transfer.svg"),
+                    )),
               ),
             ),
-            Center(
-              child: CustomPaint(
-                size: Size(widget.size, widget.size),
-                painter: SpinnerPainter(
-                  spinnerWidth: widget.spinnerWidth,
-                  color: widget.color,
-                  progress: _animation.value,
+            InkWell(
+              onTap: () {
+                // SwapContractCalls.swapExactInputSingle();
+                // print("here");
+                ref.read(swapTokensProvider.notifier).swapTokens();
+                ref.read(tokenControllerProvider.notifier).getTokenBalance();
+                // animate once clicked and stop
+                if (_animation.status == AnimationStatus.completed) {
+                  _controller.reset();
+                  _controller.forward();
+                } else {
+                  _controller.forward();
+                }
+              },
+              child: Center(
+                child: CustomPaint(
+                  size: Size(widget.size, widget.size),
+                  painter: SpinnerPainter(
+                    spinnerWidth: widget.spinnerWidth,
+                    color: widget.color,
+                    progress: _animation.value,
+                  ),
                 ),
               ),
             ),
@@ -115,32 +128,5 @@ class SpinnerPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
-  }
-}
-
-class GlowPainter extends CustomPainter {
-  final double size;
-  final Color color;
-
-  GlowPainter({required this.size, required this.color});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final double radius = size.width / 2;
-
-    final Paint paint = Paint()
-      ..color = color.withOpacity(0.2)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 10 // Adjust width for the glow effect
-      ..maskFilter =
-          const MaskFilter.blur(BlurStyle.normal, 10); // Apply blur effect
-
-    canvas.drawCircle(Offset(radius, radius), radius + 10,
-        paint); // Extend glow outside the container
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
   }
 }

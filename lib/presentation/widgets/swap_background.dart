@@ -1,5 +1,5 @@
+import 'package:exchange_mobile/core/constants/color_constants.dart';
 import 'package:flutter/material.dart';
-
 
 class SwapBackgroundWidget extends StatelessWidget {
   const SwapBackgroundWidget({
@@ -15,7 +15,7 @@ class SwapBackgroundWidget extends StatelessWidget {
               image: const AssetImage('assets/images/gradient_layer.png'),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.8),
+                ColorConstant.darkShades1.withOpacity(0.8),
                 BlendMode.colorDodge,
               ))),
     );

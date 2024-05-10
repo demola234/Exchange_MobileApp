@@ -13,7 +13,9 @@ final tokenControllerProvider =
 class TokenController extends StateNotifier<TokenState> {
   TokenController(
     this._repository,
-  ) : super(const TokenState.initial());
+  ) : super(const TokenState.initial()) {
+    getTokenBalance();
+  }
 
   final Repository _repository;
 
