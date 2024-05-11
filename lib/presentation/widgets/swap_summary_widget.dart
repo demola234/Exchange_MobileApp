@@ -1,18 +1,20 @@
 import 'package:exchange_mobile/core/constants/color_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
+import 'package:exchange_mobile/presentation/notifier/controller/swap_quote_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SwapSummary extends StatefulWidget {
+class SwapSummary extends ConsumerStatefulWidget {
   const SwapSummary({
     super.key,
   });
 
   @override
-  State<SwapSummary> createState() => _SwapSummaryState();
+  ConsumerState<SwapSummary> createState() => _SwapSummaryState();
 }
 
-class _SwapSummaryState extends State<SwapSummary> {
+class _SwapSummaryState extends ConsumerState<SwapSummary> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,121 +41,138 @@ class _SwapSummaryState extends State<SwapSummary> {
                 ),
               ),
               24.verticalSpace,
-              const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Expected payment',
-                      style: TextStyle(
-                        color: Color(0xFFCACACA),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                const Text(
+                  'Expected payment',
+                  style: TextStyle(
+                    color: Color(0xFFCACACA),
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  ref.watch(swapQuoteControllerProvider).maybeWhen(
+                        orElse: () {
+                          return '0.00 SOL';
+                        },
+                        success: (data) => data.price.toString(),
                       ),
-                    ),
-                    Text(
-                      '0.00 SOL',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
-                  ]),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
+              ]),
               15.verticalSpace,
-              const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Price Impact',
-                      style: TextStyle(
-                        color: Color(0xFFCACACA),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                const Text(
+                  'Price Impact',
+                  style: TextStyle(
+                    color: Color(0xFFCACACA),
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  ref.watch(swapQuoteControllerProvider).maybeWhen(
+                        orElse: () {
+                          return '0%';
+                        },
+                        success: (data) =>
+                            "${data.estimatedPriceImpact.toString()}%",
                       ),
-                    ),
-                    Text(
-                      '0%',
-                      style: TextStyle(
-                        color: Color(0xFF4BCE97),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    )
-                  ]),
+                  style: const TextStyle(
+                    color: Color(0xFF4BCE97),
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                )
+              ]),
               15.verticalSpace,
-              const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Min received after slippage (0%)',
-                      style: TextStyle(
-                        color: Color(0xFFCACACA),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                const Text(
+                  'Min received after slippage (0%)',
+                  style: TextStyle(
+                    color: Color(0xFFCACACA),
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  ref.watch(swapQuoteControllerProvider).maybeWhen(
+                        orElse: () {
+                          return '0.0SOL';
+                        },
+                        success: (data) => data.gas.toString(),
                       ),
-                    ),
-                    Text(
-                      '0.00 SOL',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
-                  ]),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
+              ]),
               15.verticalSpace,
-              const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Network Fee',
-                      style: TextStyle(
-                        color: Color(0xFFCACACA),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                const Text(
+                  'Network Fee',
+                  style: TextStyle(
+                    color: Color(0xFFCACACA),
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  ref.watch(swapQuoteControllerProvider).maybeWhen(
+                        orElse: () {
+                          return '0.0SOL';
+                        },
+                        success: (data) =>
+                            data.fees.zeroExFee.feeAmount.toString(),
                       ),
-                    ),
-                    Text(
-                      '0.00 SOL',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
-                  ]),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
+              ]),
               15.verticalSpace,
-              const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Provider',
-                      style: TextStyle(
-                        color: Color(0xFFCACACA),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                const Text(
+                  'Provider',
+                  style: TextStyle(
+                    color: Color(0xFFCACACA),
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  ref.watch(swapQuoteControllerProvider).maybeWhen(
+                        orElse: () {
+                          return '--';
+                        },
+                        success: (data) => '0x',
                       ),
-                    ),
-                    Text(
-                      '--',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
-                  ]),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
+              ]),
             ]));
   }
 }

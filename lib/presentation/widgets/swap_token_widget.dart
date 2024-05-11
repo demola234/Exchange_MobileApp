@@ -73,7 +73,9 @@ class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
                 children: [
                   Expanded(
                     child: TextField(
-                      controller: _exchangeController,
+                      controller: ref
+                          .read(swapQuoteControllerProvider.notifier)
+                          .sellExchangeController,
                       keyboardType:
                           const TextInputType.numberWithOptions(decimal: true),
                       inputFormatters: const <TextInputFormatter>[
@@ -95,9 +97,28 @@ class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
                         color: Colors.white,
                       ),
                       onChanged: (input) {
+                        final sellToken = ref.watch(swapTokensProvider).when(
+                              loading: (data) {
+                                return data.first.tokenAddress!;
+                              },
+                              error: (data) => data.first.tokenAddress!,
+                              success: (data) => data.first.tokenAddress!,
+                            );
+
+                        final buyToken = ref.watch(swapTokensProvider).when(
+                              loading: (data) {
+                                return data.last.tokenAddress!;
+                              },
+                              error: (data) => data.last.tokenAddress!,
+                              success: (data) => data.last.tokenAddress!,
+                            );
+
                         ref
                             .read(swapQuoteControllerProvider.notifier)
-                            .swapQuotes(amount: input);
+                            .swapQuotes(
+                                amount: input,
+                                sellToken: sellToken,
+                                buyToken: buyToken);
                       },
                     ),
                   ),
@@ -111,15 +132,18 @@ class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
         Builder(builder: (context) {
           return Text(
             ref.watch(tokenControllerProvider).maybeWhen(
-                  orElse: () => "Bal: 0.0",
+                  orElse: () => "Balance: 0.0 ",
                   success: (balance) {
-                    return ref.watch(swapTokensProvider).when(
-                        loading: (data) {
-                          return data.last.token!;
+                    return ref.watch(swapTokensProvider).maybeWhen(
+                        orElse: () {
+                          return "Balance: 0.0  ";
                         },
-                        error: (data) => data.last.token!,
+                        loading: (data) {
+                          return "Balance: 0.0  ${data.first.token}";
+                        },
+                        error: (data) => "Balance: 0.0  ${data.first.token}",
                         success: (data) {
-                          return "Balance: ${balance.result!.first.balance.toString()}  ${data.first.token}";
+                          return "Balance: ${double.parse(balance.result!.first.balance)}  ${data.first.token}";
                         });
                   },
                 ),

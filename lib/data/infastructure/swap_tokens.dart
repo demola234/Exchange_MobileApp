@@ -68,12 +68,12 @@ List<SwapTokens> tokens = [
   SwapTokens(
     tokens: [
       Tokens(
-        tokenAddress: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+        tokenAddress: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
         token: "USDT",
         tokenImage: "assets/icons/usdt.svg",
       ),
       Tokens(
-        tokenAddress: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        tokenAddress: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
         token: "ETH",
         tokenImage: "assets/icons/ethereum.svg",
       ),

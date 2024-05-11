@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:exchange_mobile/core/constants/color_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/swap_quote_controller.dart';
@@ -80,32 +78,22 @@ class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget> {
                   Expanded(
                     child: Consumer(builder: (context, ref, child) {
                       return TextField(
-                        controller: _buyexchangeController
-                          ..text =
-                              ref.watch(swapQuoteControllerProvider).maybeWhen(
-                                    orElse: () => "0.0",
-                                    success: (data) {
-                                      return data.buyAmount.toString();
-                                    },
-                                  ),
+                        controller: ref
+                            .read(swapQuoteControllerProvider.notifier)
+                            .buyExchangeController,
                         keyboardType: const TextInputType.numberWithOptions(
                             decimal: true),
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                          // allow only digits
                         ],
-                        decoration: InputDecoration(
-                          hintText:
-                              ref.watch(swapQuoteControllerProvider).maybeWhen(
-                                    orElse: () => "0.00",
-                                    success: (data) {
-                                      final buy = data.buyAmount / pow(10, 18);
-                                      return buy.toString();
-                                    },
-                                  ),
-                          enabled: true,
+                        readOnly: true,
+                        decoration: const InputDecoration(
+                          hintText: "0.00",
+                          enabled: false,
                           border: InputBorder.none,
                           isDense: true,
-                          hintStyle: const TextStyle(
+                          hintStyle: TextStyle(
                             fontSize: 30.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -133,15 +121,18 @@ class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget> {
         20.verticalSpace,
         Text(
           ref.watch(tokenControllerProvider).maybeWhen(
-                orElse: () => "Bal: 0.0",
+                orElse: () => "Balance: 0.0 ",
                 success: (balance) {
-                  return ref.watch(swapTokensProvider).when(
-                      loading: (data) {
-                        return data.last.token!;
+                  return ref.watch(swapTokensProvider).maybeWhen(
+                      orElse: () {
+                        return "Balance: 0.0  ";
                       },
-                      error: (data) => data.last.token!,
+                      loading: (data) {
+                        return "Balance: 0.0  ${data.last.token}";
+                      },
+                      error: (data) => "Balance: 0.0  ${data.last.token}",
                       success: (data) {
-                        return "Balance: ${balance.result!.last.balance.toString()}  ${data.last.token}";
+                        return "Balance: ${double.parse(balance.result!.last.balance)}  ${data.last.token}";
                       });
                 },
               ),
