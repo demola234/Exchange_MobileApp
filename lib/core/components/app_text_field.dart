@@ -1,3 +1,30 @@
+/// A custom text field widget that provides various customization options.
+///
+/// The [AppTextField] widget is a wrapper around the [TextFormField] widget
+/// and provides additional features such as suffix icons, input validation,
+/// text capitalization, and more.
+///
+/// The widget can be used to create text input fields with different styles
+/// and behaviors based on the provided parameters.
+///
+/// Example usage:
+/// ```dart
+/// AppTextField(
+///   labelText: 'Email',
+///   hintText: 'Enter your email',
+///   inputType: TextInputType.emailAddress,
+///   validator: (value) {
+///     if (value == null || value.isEmpty) {
+///       return 'Please enter your email';
+///     }
+///     return null;
+///   },
+///   onChanged: (value) {
+///     // Handle text field value changes
+///   },
+/// )
+/// ```
+
 // 🐦 Flutter imports:
 
 import 'package:exchange_mobile/core/constants/color_constants.dart';

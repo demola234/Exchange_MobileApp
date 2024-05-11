@@ -45,13 +45,6 @@ class WalletNotifierController extends StateNotifier<WalletState> {
         mnemonics: data.mnemonics!,
         address: data.publicKey!,
       );
-
-      // context.showToast(
-      //   title: user.message,
-      //   toastDurationInSeconds: 5,
-      //   isSuccess: true,
-      // );
-      // state = WalletState.signUpSuccess(data: user);
     });
   }
 

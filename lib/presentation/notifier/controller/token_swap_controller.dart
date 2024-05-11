@@ -26,8 +26,3 @@ final swapTokensProvider =
     StateNotifierProvider<TokenSwapController, TokenSwapState>((ref) {
   return TokenSwapController();
 });
- 
-  // The  TokenSwapController  class is a  StateNotifier  that holds the current positions of the tokens. It has a method  swapTokens  that swaps the positions of the tokens. The  getCurrentPositions  method returns the current positions of the tokens. 
-  // The  swapTokensProvider  is a  StateNotifierProvider  that provides the  TokenSwapController  to the widget tree. 
-  // The  swapTokensProvider  is used in the  SwapTokensPage  widget to get the current positions of the tokens and to swap the positions of the tokens. 
-  // // Path: lib/presentation/pages/swap_tokens_page.dart

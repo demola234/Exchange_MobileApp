@@ -1,3 +1,25 @@
+/// A custom button widget that can be used to create buttons with custom styles and functionality.
+///
+/// The `ButtonComponents` class extends the `StatelessWidget` class and provides a customizable button
+/// with text, color, and icon options. It uses the `ElevatedButton` widget from the Flutter framework
+/// to render the button.
+///
+/// Example usage:
+///
+/// ```dart
+/// ButtonComponents(
+///   text: 'Submit',
+///   buttonColor: Colors.blue,
+///   textColor: Colors.white,
+///   onPressed: () {
+///     // Handle button press
+///   },
+///   icon: 'assets/icons/submit_icon.svg',
+///   textSize: 18,
+///   padding: EdgeInsets.all(10),
+/// )
+/// ```
+
 import 'package:exchange_mobile/core/constants/color_constants.dart';
 import 'package:exchange_mobile/core/constants/fonts_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
