@@ -26,7 +26,7 @@ class EndpointManager {
   static String getEthBalance = '$infuraUrl/$infuraApiKey';
 
   // !! Swap Qoute
-  static String getSwapQuote = '$oxUrl/quote';
+  static String getSwapQuote = '$oxUrl/price';
 }
 
 class EndPointConstant {

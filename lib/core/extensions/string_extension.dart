@@ -29,9 +29,5 @@ extension ListSentenceExtension on String {
   String get removeAllWhitespace => replaceAll(RegExp(r'\s+'), '');
 }
 
-extension ContainsLinkOrHashtags on String {
-  bool containsLinkOrHashtags() {
-    // return true if string contains link or hashtags
-    return RegExp(r'(https?:\/\/\S+)|(#\w+)').hasMatch(this);
-  }
-}
+
+

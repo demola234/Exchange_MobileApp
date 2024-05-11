@@ -54,7 +54,7 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                 Text(
                   ref.watch(swapQuoteControllerProvider).maybeWhen(
                         orElse: () {
-                          return '0.00 SOL';
+                          return '0.00';
                         },
                         success: (data) => data.price.toString(),
                       ),
@@ -108,7 +108,7 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                 Text(
                   ref.watch(swapQuoteControllerProvider).maybeWhen(
                         orElse: () {
-                          return '0.0SOL';
+                          return '0.0';
                         },
                         success: (data) => data.gas.toString(),
                       ),
@@ -134,10 +134,10 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                 Text(
                   ref.watch(swapQuoteControllerProvider).maybeWhen(
                         orElse: () {
-                          return '0.0SOL';
+                          return '0.0 ';
                         },
                         success: (data) =>
-                            data.fees.zeroExFee.feeAmount.toString(),
+                            data.fees!.zeroExFee!.feeAmount.toString(),
                       ),
                   style: const TextStyle(
                     color: Colors.white,

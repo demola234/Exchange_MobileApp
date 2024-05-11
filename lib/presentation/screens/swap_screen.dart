@@ -1,6 +1,8 @@
+import 'package:exchange_mobile/core/components/button_component.dart';
 import 'package:exchange_mobile/core/constants/color_constants.dart';
 import 'package:exchange_mobile/core/constants/fonts_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
+import 'package:exchange_mobile/presentation/notifier/controller/swap_user_token_controller.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/token_controller.dart';
 import 'package:exchange_mobile/presentation/widgets/buy_token_swap_widget.dart';
 import 'package:exchange_mobile/presentation/widgets/current_user_widget.dart';
@@ -81,6 +83,22 @@ class _SwapScreenState extends ConsumerState<SwapScreen> {
                           )),
                       20.verticalSpace,
                       const SwapSummary(),
+                      20.verticalSpace,
+                      ButtonComponents(
+                        text: "Swipe to Complete",
+                        textColor: Colors.black,
+                        onPressed: () {
+                          print("click");
+                          ref
+                              .read(swapUserTokenControllerProvider.notifier)
+                              .swapTokens(
+                                amount: "1000",
+                                context: context,
+                              );
+                        },
+                        buttonColor: Colors.white,
+                      ),
+                      30.verticalSpace,
                     ],
                   ),
                 ),

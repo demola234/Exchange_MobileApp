@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:math';
+
+import 'package:exchange_mobile/core/extensions/money_formatter.dart';
 import 'package:exchange_mobile/core/injector/injector.dart';
 import 'package:exchange_mobile/domain/repositories/repositories.dart';
 import 'package:exchange_mobile/presentation/notifier/states/swap_quote_state.dart';
@@ -21,6 +25,8 @@ class SwapQuoteController extends StateNotifier<SwapQuoteState> {
   TextEditingController sellExchangeController = TextEditingController();
   static String oxUrl = dotenv.env['OxAPI_URL']!;
 
+  Timer? _debounceTimer;
+
   Future<void> swapQuotes(
       {required String amount,
       required String sellToken,
@@ -28,17 +34,33 @@ class SwapQuoteController extends StateNotifier<SwapQuoteState> {
     if (sellExchangeController.text.isEmpty) {
       buyExchangeController.clear();
     }
-    state = const SwapQuoteState.loading();
 
-    final result = await _repository.getSwapQuote(
-        sellToken: sellToken, buyToken: buyToken, amount: amount.toString());
+    if (_debounceTimer != null) {
+      _debounceTimer!.cancel();
+    }
+    _debounceTimer = Timer(const Duration(milliseconds: 1000), () async {
+      state = const SwapQuoteState.loading();
 
-    result.fold((failure) {
-      buyExchangeController.clear();
-      state = SwapQuoteState.error(failure.toString());
-    }, (data) {
-      buyExchangeController.text = data.buyAmount.toString();
-      state = SwapQuoteState.success(data);
+      // Implement the debounce for API call
+      final result = await _repository.getSwapQuote(
+          sellToken: buyToken,
+          buyToken: sellToken,
+          amount: (int.parse(amount) * pow(10, 5)).toString());
+
+      result.fold((failure) {
+        buyExchangeController.clear();
+        state = SwapQuoteState.error(failure.toString());
+      }, (data) {
+        buyExchangeController.text = (double.parse(data.sellTokenToEthRate) *
+                double.parse(sellExchangeController.text))
+            .toString()
+            .intValue
+            .toString();
+        state = SwapQuoteState.success(data);
+      });
     });
   }
+
+  // Swap Token 
+
 }

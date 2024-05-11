@@ -9,7 +9,7 @@ class TokenSwapController extends StateNotifier<TokenSwapState> {
 
   // Swap token positions
    swapTokens() {
-    final temp = tokens.first.tokens!.first!;
+    final temp = tokens.first.tokens!.first;
     tokens.first.tokens!.first = tokens.first.tokens!.last;
     tokens.first.tokens!.last = temp;
 

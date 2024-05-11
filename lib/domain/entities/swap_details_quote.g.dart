@@ -25,22 +25,19 @@ _$SwapDetailsQuoteImpl _$$SwapDetailsQuoteImplFromJson(
       sellTokenAddress: json['sellTokenAddress'] ?? "",
       sellAmount: json['sellAmount'] ?? "",
       grossSellAmount: json['grossSellAmount'] ?? "",
-      sources: (json['sources'] as List<dynamic>)
-          .map((e) => Source.fromJson(e as Map<String, dynamic>))
+      sources: (json['sources'] as List<dynamic>?)
+          ?.map((e) => Source.fromJson(e as Map<String, dynamic>))
           .toList(),
       allowanceTarget: json['allowanceTarget'] ?? "",
       sellTokenToEthRate: json['sellTokenToEthRate'] ?? "",
       buyTokenToEthRate: json['buyTokenToEthRate'] ?? "",
-      to: json['to'] ?? "",
-      data: json['data'] ?? "",
-      decodedUniqueId: json['decodedUniqueId'] ?? "",
-      guaranteedPrice: json['guaranteedPrice'] ?? "",
-      orders: (json['orders'] as List<dynamic>)
-          .map((e) => Order.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      fees: Fees.fromJson(json['fees'] as Map<String, dynamic>),
-      auxiliaryChainData: AuxiliaryChainData.fromJson(
-          json['auxiliaryChainData'] as Map<String, dynamic>),
+      fees: json['fees'] == null
+          ? null
+          : Fees.fromJson(json['fees'] as Map<String, dynamic>),
+      auxiliaryChainData: json['auxiliaryChainData'] == null
+          ? null
+          : AuxiliaryChainData.fromJson(
+              json['auxiliaryChainData'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SwapDetailsQuoteImplToJson(
@@ -66,11 +63,6 @@ Map<String, dynamic> _$$SwapDetailsQuoteImplToJson(
       'allowanceTarget': instance.allowanceTarget,
       'sellTokenToEthRate': instance.sellTokenToEthRate,
       'buyTokenToEthRate': instance.buyTokenToEthRate,
-      'to': instance.to,
-      'data': instance.data,
-      'decodedUniqueId': instance.decodedUniqueId,
-      'guaranteedPrice': instance.guaranteedPrice,
-      'orders': instance.orders,
       'fees': instance.fees,
       'auxiliaryChainData': instance.auxiliaryChainData,
     };
@@ -84,7 +76,9 @@ Map<String, dynamic> _$$AuxiliaryChainDataImplToJson(
     <String, dynamic>{};
 
 _$FeesImpl _$$FeesImplFromJson(Map<String, dynamic> json) => _$FeesImpl(
-      zeroExFee: ZeroExFee.fromJson(json['zeroExFee'] as Map<String, dynamic>),
+      zeroExFee: json['zeroExFee'] == null
+          ? null
+          : ZeroExFee.fromJson(json['zeroExFee'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$FeesImplToJson(_$FeesImpl instance) =>
@@ -106,58 +100,6 @@ Map<String, dynamic> _$$ZeroExFeeImplToJson(_$ZeroExFeeImpl instance) =>
       'feeToken': instance.feeToken,
       'feeAmount': instance.feeAmount,
       'billingType': instance.billingType,
-    };
-
-_$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
-      type: json['type'] ?? 0,
-      source: json['source'] ?? "",
-      makerToken: json['makerToken'] ?? "",
-      takerToken: json['takerToken'] ?? "",
-      makerAmount: json['makerAmount'] ?? "",
-      takerAmount: json['takerAmount'] ?? "",
-      fillData: FillData.fromJson(json['fillData'] as Map<String, dynamic>),
-      fill: Fill.fromJson(json['fill'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$$OrderImplToJson(_$OrderImpl instance) =>
-    <String, dynamic>{
-      'type': instance.type,
-      'source': instance.source,
-      'makerToken': instance.makerToken,
-      'takerToken': instance.takerToken,
-      'makerAmount': instance.makerAmount,
-      'takerAmount': instance.takerAmount,
-      'fillData': instance.fillData,
-      'fill': instance.fill,
-    };
-
-_$FillImpl _$$FillImplFromJson(Map<String, dynamic> json) => _$FillImpl(
-      input: json['input'] ?? "",
-      output: json['output'] ?? "",
-      adjustedOutput: json['adjustedOutput'] ?? "",
-      gas: json['gas'] ?? 0,
-    );
-
-Map<String, dynamic> _$$FillImplToJson(_$FillImpl instance) =>
-    <String, dynamic>{
-      'input': instance.input,
-      'output': instance.output,
-      'adjustedOutput': instance.adjustedOutput,
-      'gas': instance.gas,
-    };
-
-_$FillDataImpl _$$FillDataImplFromJson(Map<String, dynamic> json) =>
-    _$FillDataImpl(
-      tokenAddressPath: (json['tokenAddressPath'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      router: json['router'] ?? "",
-    );
-
-Map<String, dynamic> _$$FillDataImplToJson(_$FillDataImpl instance) =>
-    <String, dynamic>{
-      'tokenAddressPath': instance.tokenAddressPath,
-      'router': instance.router,
     };
 
 _$SourceImpl _$$SourceImplFromJson(Map<String, dynamic> json) => _$SourceImpl(

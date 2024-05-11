@@ -19,7 +19,6 @@ class SwapTokenSwapWidget extends ConsumerStatefulWidget {
 }
 
 class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
-  final _exchangeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(

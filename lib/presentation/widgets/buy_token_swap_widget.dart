@@ -1,10 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exchange_mobile/core/constants/color_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/swap_quote_controller.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/token_controller.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/token_swap_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,8 +18,30 @@ class BuyTokenSwapWidget extends ConsumerStatefulWidget {
   ConsumerState<BuyTokenSwapWidget> createState() => _BuyTokenSwapWidget();
 }
 
-class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget> {
-  final _buyexchangeController = TextEditingController();
+class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+        vsync: this,
+        duration: const Duration(
+          microseconds: 2000,
+        ));
+    // animate to vibrate
+    _animation = Tween<double>(begin: 1.0, end: 1.1).animate(
+        CurvedAnimation(parent: _controller, curve: Curves.elasticInOut));
+    _animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controller.reverse();
+      }
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -69,52 +91,92 @@ class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget> {
                     ]);
                   },
                 )),
+            // SizedBox(
+            //   height: 60.sp,
+            //   width: 90.sp,
+            //   child: Column(
+            //     mainAxisSize: MainAxisSize.min,
+            //     children: [
+            //       Expanded(
+            //         child: Consumer(builder: (context, ref, child) {
+            //           return TextField(
+            //             controller: ref
+            //                 .read(swapQuoteControllerProvider.notifier)
+            //                 .buyExchangeController,
+            //             keyboardType: const TextInputType.numberWithOptions(
+            //                 decimal: true),
+            //             inputFormatters: <TextInputFormatter>[
+            //               FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+            //               // allow only digits
+            //             ],
+            //             readOnly: true,
+            //             decoration: const InputDecoration(
+            //               hintText: "0.00",
+            //               enabled: false,
+            //               border: InputBorder.none,
+            //               isDense: true,
+            //               hintStyle: TextStyle(
+            //                 fontSize: 30.0,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: Colors.white,
+            //               ),
+            //             ),
+            //             style: const TextStyle(
+            //               fontSize: 30.0,
+            //               fontWeight: FontWeight.bold,
+            //               color: Colors.white,
+            //             ),
+            //             onChanged: (input) {
+            //               // ref
+            //               //     .read(swapQuoteControllerProvider.notifier)
+            //               //     .swapQuotes(amount: input);
+            //             },
+            //           );
+            //         }),
+            //       ),
             SizedBox(
               height: 60.sp,
               width: 90.sp,
-              child: Column(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Expanded(
-                    child: Consumer(builder: (context, ref, child) {
-                      return TextField(
-                        controller: ref
-                            .read(swapQuoteControllerProvider.notifier)
-                            .buyExchangeController,
-                        keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true),
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-                          // allow only digits
-                        ],
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          hintText: "0.00",
-                          enabled: false,
-                          border: InputBorder.none,
-                          isDense: true,
-                          hintStyle: TextStyle(
+                    child: SizedBox(
+                      width: 90.sp,
+                      child: ScaleTransition(
+                        scale: _animation,
+                        child: AutoSizeText(
+                          maxFontSize: 30,
+                          style: const TextStyle(
                             fontSize: 30.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
+
+                          ref
+                                  .watch(swapQuoteControllerProvider.notifier)
+                                  .buyExchangeController
+                                  .text
+                                  .isEmpty
+                              ? '0.00'
+                              : ref
+                                  .read(swapQuoteControllerProvider.notifier)
+                                  .buyExchangeController
+                                  .text,
+                          // "0.0",
+                          softWrap: true,
+                          // stepGranularity: 0.4,
+                          overflow: TextOverflow.fade,
                         ),
-                        style: const TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                        onChanged: (input) {
-                          // ref
-                          //     .read(swapQuoteControllerProvider.notifier)
-                          //     .swapQuotes(amount: input);
-                        },
-                      );
-                    }),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
+            // ],
+            // ),
+            // ),
             // Create Textfield similar to that of uniswap in flutter
           ],
         ),
