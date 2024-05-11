@@ -1,4 +1,5 @@
 import 'package:exchange_mobile/core/constants/color_constants.dart';
+import 'package:exchange_mobile/core/constants/fonts_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/swap_quote_controller.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/token_controller.dart';
@@ -55,7 +56,7 @@ class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
                           error: (data) => data.first.token!,
                           success: (data) => data.first.token!,
                         ),
-                    style: const TextStyle(
+                    style: FontConstant.appNormalFont.copyWith(
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
@@ -90,7 +91,7 @@ class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
                           color: Colors.white,
                         ),
                       ),
-                      style: const TextStyle(
+                      style: FontConstant.appNormalFont.copyWith(
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -146,9 +147,9 @@ class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
                         });
                   },
                 ),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
+           style: FontConstant.appNormalFont.copyWith(
+              color: ColorConstant.lightSystemColor,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w400,
             ),
           );

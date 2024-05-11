@@ -70,7 +70,6 @@ class _SwapScreenState extends ConsumerState<SwapScreen> {
                                 style: FontConstant.appNormalFont.copyWith(
                                   color: ColorConstant.lightSystemColor,
                                   fontSize: 24.sp,
-                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -88,11 +87,9 @@ class _SwapScreenState extends ConsumerState<SwapScreen> {
                         text: "Swipe to Complete",
                         textColor: Colors.black,
                         onPressed: () {
-                          print("click");
                           ref
                               .read(swapUserTokenControllerProvider.notifier)
                               .swapTokens(
-                                amount: "1000",
                                 context: context,
                               );
                         },

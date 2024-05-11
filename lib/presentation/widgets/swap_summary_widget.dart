@@ -1,4 +1,5 @@
 import 'package:exchange_mobile/core/constants/color_constants.dart';
+import 'package:exchange_mobile/core/constants/fonts_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/swap_quote_controller.dart';
 import 'package:flutter/material.dart';
@@ -30,24 +31,22 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Swap Summary',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFFA2A2A2),
-                  fontSize: 16,
-                  fontFamily: 'Nunito Sans',
+                style: FontConstant.appNormalFont.copyWith(
+                  color: ColorConstant.textGreyColor,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               24.verticalSpace,
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                const Text(
+                Text(
                   'Expected payment',
-                  style: TextStyle(
-                    color: Color(0xFFCACACA),
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.textGreyColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -58,22 +57,20 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                         },
                         success: (data) => data.price.toString(),
                       ),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.lightSystemColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 )
               ]),
               15.verticalSpace,
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                const Text(
+                Text(
                   'Price Impact',
-                  style: TextStyle(
-                    color: Color(0xFFCACACA),
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.textGreyColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -85,10 +82,9 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                         success: (data) =>
                             "${data.estimatedPriceImpact.toString()}%",
                       ),
-                  style: const TextStyle(
-                    color: Color(0xFF4BCE97),
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.blueSystemColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w700,
                     height: 0,
                   ),
@@ -96,12 +92,11 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
               ]),
               15.verticalSpace,
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                const Text(
+                Text(
                   'Min received after slippage (0%)',
-                  style: TextStyle(
-                    color: Color(0xFFCACACA),
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.textGreyColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -112,22 +107,20 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                         },
                         success: (data) => data.gas.toString(),
                       ),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.lightSystemColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 )
               ]),
               15.verticalSpace,
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                const Text(
+                Text(
                   'Network Fee',
-                  style: TextStyle(
-                    color: Color(0xFFCACACA),
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.textGreyColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -139,22 +132,20 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                         success: (data) =>
                             data.fees!.zeroExFee!.feeAmount.toString(),
                       ),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.lightSystemColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 )
               ]),
               15.verticalSpace,
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                const Text(
+                Text(
                   'Provider',
-                  style: TextStyle(
-                    color: Color(0xFFCACACA),
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.textGreyColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -165,10 +156,9 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                         },
                         success: (data) => '0x',
                       ),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontFamily: 'Nunito Sans',
+                  style: FontConstant.appNormalFont.copyWith(
+                    color: ColorConstant.lightSystemColor,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 )

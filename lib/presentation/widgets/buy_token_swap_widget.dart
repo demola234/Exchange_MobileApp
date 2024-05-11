@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exchange_mobile/core/constants/color_constants.dart';
+import 'package:exchange_mobile/core/constants/fonts_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/swap_quote_controller.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/token_controller.dart';
@@ -91,49 +92,6 @@ class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget>
                     ]);
                   },
                 )),
-            // SizedBox(
-            //   height: 60.sp,
-            //   width: 90.sp,
-            //   child: Column(
-            //     mainAxisSize: MainAxisSize.min,
-            //     children: [
-            //       Expanded(
-            //         child: Consumer(builder: (context, ref, child) {
-            //           return TextField(
-            //             controller: ref
-            //                 .read(swapQuoteControllerProvider.notifier)
-            //                 .buyExchangeController,
-            //             keyboardType: const TextInputType.numberWithOptions(
-            //                 decimal: true),
-            //             inputFormatters: <TextInputFormatter>[
-            //               FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-            //               // allow only digits
-            //             ],
-            //             readOnly: true,
-            //             decoration: const InputDecoration(
-            //               hintText: "0.00",
-            //               enabled: false,
-            //               border: InputBorder.none,
-            //               isDense: true,
-            //               hintStyle: TextStyle(
-            //                 fontSize: 30.0,
-            //                 fontWeight: FontWeight.bold,
-            //                 color: Colors.white,
-            //               ),
-            //             ),
-            //             style: const TextStyle(
-            //               fontSize: 30.0,
-            //               fontWeight: FontWeight.bold,
-            //               color: Colors.white,
-            //             ),
-            //             onChanged: (input) {
-            //               // ref
-            //               //     .read(swapQuoteControllerProvider.notifier)
-            //               //     .swapQuotes(amount: input);
-            //             },
-            //           );
-            //         }),
-            //       ),
             SizedBox(
               height: 60.sp,
               width: 90.sp,
@@ -147,10 +105,10 @@ class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget>
                         scale: _animation,
                         child: AutoSizeText(
                           maxFontSize: 30,
-                          style: const TextStyle(
-                            fontSize: 30.0,
+                          style: FontConstant.appNormalFont.copyWith(
+                            fontSize: 30.sp,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: ColorConstant.lightSystemColor,
                           ),
 
                           ref
@@ -174,10 +132,6 @@ class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget>
                 ],
               ),
             ),
-            // ],
-            // ),
-            // ),
-            // Create Textfield similar to that of uniswap in flutter
           ],
         ),
         20.verticalSpace,
@@ -198,9 +152,9 @@ class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget>
                       });
                 },
               ),
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 12,
+          style: FontConstant.appNormalFont.copyWith(
+            color: ColorConstant.lightSystemColor,
+            fontSize: 12.sp,
             fontWeight: FontWeight.w400,
           ),
         ),
