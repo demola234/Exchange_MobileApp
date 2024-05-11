@@ -5,6 +5,7 @@ import 'package:exchange_mobile/domain/repositories/repositories.dart';
 import 'package:exchange_mobile/presentation/notifier/states/swap_user_token.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Repository repository = sl<Repository>();
 final swapUserTokenControllerProvider =
@@ -29,6 +30,14 @@ class SwapQuoteController extends StateNotifier<SwapUserToken> {
     );
 
     result.fold((failure) {
+      Fluttertoast.showToast(
+          msg: failure.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
       context.hide();
       state = SwapUserToken.error(failure.toString());
     }, (data) {

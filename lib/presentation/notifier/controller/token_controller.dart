@@ -2,7 +2,9 @@ import 'package:exchange_mobile/core/injector/injector.dart';
 import 'package:exchange_mobile/core/security/security.dart';
 import 'package:exchange_mobile/domain/repositories/repositories.dart';
 import 'package:exchange_mobile/presentation/notifier/states/token_state.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Repository repository = sl<Repository>();
 final tokenControllerProvider =
@@ -30,6 +32,14 @@ class TokenController extends StateNotifier<TokenState> {
     });
     result.fold((failure) {
       state = TokenState.error(failure.toString());
+      Fluttertoast.showToast(
+          msg: failure.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }, (data) {
       state = TokenState.success(data);
     });

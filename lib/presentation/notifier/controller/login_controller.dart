@@ -7,6 +7,7 @@ import 'package:exchange_mobile/presentation/notifier/states/login_state.dart';
 import 'package:exchange_mobile/presentation/screens/create_wallet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginControllerNotifier extends StateNotifier<LoginState> {
   LoginControllerNotifier(
@@ -26,19 +27,20 @@ class LoginControllerNotifier extends StateNotifier<LoginState> {
     final result = await _repository.googleAuth();
     result.fold((failure) {
       context.hide();
+      Fluttertoast.showToast(
+          msg: failure.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
 
       state = LoginState.error(error: failure.toString());
     }, (user) {
       context.hide();
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const CreateWalletScreen()));
-
-      // context.showToast(
-      //   title: user.message,
-      //   toastDurationInSeconds: 5,
-      //   isSuccess: true,
-      // );
-      // state = LoginState.signUpSuccess(data: user);
     });
   }
 

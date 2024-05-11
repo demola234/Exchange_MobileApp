@@ -6,6 +6,7 @@ import 'package:exchange_mobile/presentation/notifier/states/wallet_state.dart';
 import 'package:exchange_mobile/presentation/screens/swap_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class WalletNotifierController extends StateNotifier<WalletState> {
   WalletNotifierController(
@@ -23,6 +24,14 @@ class WalletNotifierController extends StateNotifier<WalletState> {
     final result = await _repository.generateSeedPhrase();
     result.fold((failure) {
       context.hide();
+      Fluttertoast.showToast(
+          msg: failure.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
 
       state = WalletState.error(error: failure.toString());
     }, (data) {
@@ -69,19 +78,20 @@ class WalletNotifierController extends StateNotifier<WalletState> {
         await _repository.generateWalletFromSeedPhrase(mnemonic: mnemonics);
     result.fold((failure) {
       context.hide();
+      Fluttertoast.showToast(
+          msg: failure.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
 
       state = WalletState.error(error: failure.toString());
     }, (data) {
       context.hide();
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const SwapScreen()));
-
-      // context.showToast(
-      //   title: user.message,
-      //   toastDurationInSeconds: 5,
-      //   isSuccess: true,
-      // );
-      // state = WalletState.signUpSuccess(data: user);
     });
   }
 }

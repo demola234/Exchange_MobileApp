@@ -8,6 +8,7 @@ import 'package:exchange_mobile/presentation/notifier/states/swap_quote_state.da
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Repository repository = sl<Repository>();
 final swapQuoteControllerProvider =
@@ -48,6 +49,14 @@ class SwapQuoteController extends StateNotifier<SwapQuoteState> {
           amount: (int.parse(amount) * pow(10, 5)).toString());
 
       result.fold((failure) {
+        Fluttertoast.showToast(
+            msg: failure.message,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
         buyExchangeController.clear();
         state = SwapQuoteState.error(failure.toString());
       }, (data) {
@@ -61,6 +70,5 @@ class SwapQuoteController extends StateNotifier<SwapQuoteState> {
     });
   }
 
-  // Swap Token 
-
+  // Swap Token
 }
