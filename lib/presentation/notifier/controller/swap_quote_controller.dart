@@ -13,16 +13,19 @@ import 'package:fluttertoast/fluttertoast.dart';
 Repository repository = sl<Repository>();
 final swapQuoteControllerProvider =
     StateNotifierProvider<SwapQuoteController, SwapQuoteState>((ref) {
-  return SwapQuoteController(repository);
+  return SwapQuoteController(repository, ref);
 });
 
 class SwapQuoteController extends StateNotifier<SwapQuoteState> {
   SwapQuoteController(
     this._repository,
+    this._ref,
   ) : super(const SwapQuoteState.initial());
 
   final Repository _repository;
+  final Ref _ref;
   TextEditingController buyExchangeController = TextEditingController();
+
   TextEditingController sellExchangeController = TextEditingController();
   static String oxUrl = dotenv.env['OxAPI_URL']!;
 
@@ -46,7 +49,7 @@ class SwapQuoteController extends StateNotifier<SwapQuoteState> {
       final result = await _repository.getSwapQuote(
           sellToken: buyToken,
           buyToken: sellToken,
-          amount: (int.parse(amount) * pow(10, 5)).toString());
+          amount: (int.parse(amount) * pow(10, 6)).toString());
 
       result.fold((failure) {
         Fluttertoast.showToast(
@@ -63,8 +66,7 @@ class SwapQuoteController extends StateNotifier<SwapQuoteState> {
         buyExchangeController.text = (double.parse(data.sellTokenToEthRate) *
                 double.parse(sellExchangeController.text))
             .toString()
-            .intValue
-            .toString();
+            .formatCurrency();
         state = SwapQuoteState.success(data);
       });
     });

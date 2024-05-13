@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exchange_mobile/core/constants/color_constants.dart';
 import 'package:exchange_mobile/core/constants/fonts_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
+import 'package:exchange_mobile/presentation/notifier/controller/get_amount_value.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/swap_quote_controller.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/token_controller.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/token_swap_controller.dart';
@@ -104,23 +105,35 @@ class _BuyTokenSwapWidget extends ConsumerState<BuyTokenSwapWidget>
                       child: ScaleTransition(
                         scale: _animation,
                         child: AutoSizeText(
-                          maxFontSize: 30,
+                          maxFontSize: 50,
                           style: FontConstant.appNormalFont.copyWith(
                             fontSize: 30.sp,
                             fontWeight: FontWeight.bold,
                             color: ColorConstant.lightSystemColor,
                           ),
 
-                          ref
-                                  .watch(swapQuoteControllerProvider.notifier)
-                                  .buyExchangeController
-                                  .text
-                                  .isEmpty
-                              ? '0.00'
-                              : ref
-                                  .read(swapQuoteControllerProvider.notifier)
-                                  .buyExchangeController
-                                  .text,
+                          // ref
+                          //         .watch(swapQuoteControllerProvider.notifier)
+                          //         .buyExchangeController
+                          //         .text
+                          //         .isEmpty
+                          //     ? '0.00'
+                          //     : ref
+                          //         .read(swapQuoteControllerProvider.notifier)
+                          //         .buyExchangeController
+                          //         .text,
+                          ref.watch(swapQuoteControllerProvider).maybeWhen(
+                                orElse: () {
+                                  return '0.0 ';
+                                },
+                                success: (data) =>
+                                    ((double.parse(data.sellTokenToEthRate) *
+                                            (double.parse(
+                                              (ref.watch(
+                                                  getAmountValueControllerProvider)),
+                                            )))
+                                        .toString()),
+                              ),
                           // "0.0",
                           softWrap: true,
                           // stepGranularity: 0.4,

@@ -1,19 +1,19 @@
-extension CurrencyToInt on String {
-  int get intValue {
-    try {
-      // Extract digits only
-      final cleanValue = replaceAll(RegExp(r'[^0-9]'), '');
+extension CurrencyFormatter on String {
+  String formatCurrency({String symbol = '\$'}) {
+    // Parse the string as double
+    double amount = double.tryParse(this) ?? 0.0;
 
-      // Parse as integer
-      final intValue = int.parse(cleanValue);
+    // Format the amount as currency
+    String formattedAmount = amount.toStringAsFixed(2);
 
-      // Round the last two digits to the nearest number
-      final roundedValue = (intValue / 100).round();
+    // Insert commas for thousands separator
+    final parts = formattedAmount.split('.');
+    parts[0] = parts[0].replaceAllMapped(
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+      (Match match) => '${match[1]},',
+    );
 
-      return roundedValue;
-    } catch (_) {
-      // In case of any error, return 0
-      return 0;
-    }
+    // Add currency symbol
+    return '$symbol${parts.join('.')}';
   }
 }

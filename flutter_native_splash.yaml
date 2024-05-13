@@ -1,5 +1,4 @@
 flutter_native_splash:
-  image: assets/images/gradient_layer.png
   color: "#000F14"
   fullscreen: true
   android: true

@@ -28,10 +28,10 @@ class SwapQuoteController extends StateNotifier<SwapUserToken> {
     final etherResult = await sl<SecureStorage>().getWalletDetails();
 
     final result = await _repository.swapToken(
-      amount: BigInt.parse(ref
+      amount: BigInt.tryParse(ref
           .read(swapQuoteControllerProvider.notifier)
           .buyExchangeController
-          .text),
+          .text)!,
       userAddress: etherResult!.publicKey ?? "",
     );
 

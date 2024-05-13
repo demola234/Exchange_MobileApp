@@ -105,7 +105,9 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                         orElse: () {
                           return '0.0';
                         },
-                        success: (data) => data.gas.toString(),
+                        success: (data) =>
+                            (double.parse(data.estimatedGas) / 1000000)
+                                .toString(),
                       ),
                   style: FontConstant.appNormalFont.copyWith(
                     color: ColorConstant.lightSystemColor,
@@ -129,8 +131,9 @@ class _SwapSummaryState extends ConsumerState<SwapSummary> {
                         orElse: () {
                           return '0.0 ';
                         },
-                        success: (data) =>
-                            data.fees!.zeroExFee!.feeAmount.toString(),
+                        success: (data) => data.fees!.zeroExFee != null
+                            ? "${(double.tryParse(data.fees!.zeroExFee!.feeAmount)! / 1000000).toString()} USD"
+                            : "",
                       ),
                   style: FontConstant.appNormalFont.copyWith(
                     color: ColorConstant.lightSystemColor,

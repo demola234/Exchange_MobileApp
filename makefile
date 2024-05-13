@@ -61,9 +61,6 @@ lint: ## Lints the code
 	@echo "╠ Verifying code..."
 	@dart analyze . || (echo "Error in project"; exit 1)
 
-upgrade: clean ## Upgrades dependencies
-	@echo "╠ Upgrading dependencies..."
-	@flutter pub upgrade
 
 commit: format lint run_unit
 	@echo "╠ Committing..."
@@ -78,18 +75,10 @@ build_apk_prod: ## Runs the mobile application in prod
 fetch: ## Runs and fetches all the freezed package
 	@dart run build_runner build --delete-conflicting-outputs
 
-default_notification: ## Runs notification on Emulator for testing
-	@xcrun simctl push booted com.synergyng.synergy pushes/push1.json
-
 purge: ## Purges the Flutter 
 	@pod deintegrate
 	@flutter clean
 	@flutter pub get
-
-tabby: ## Runs the application in Tabby
-	@echo "╠ Running the application in Tabby..."
-	@tabby serve --device metal --model TabbyML/StarCoder-1B
-	 
 
 ios: ## Purges the IOS Folder and Fetches the Pod Files
 	cd ios &&  arch -x86_64 pod install --repo-update

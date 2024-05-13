@@ -6,16 +6,21 @@ import 'package:exchange_mobile/core/constants/property_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 extension AlertsDialog on BuildContext {
   _copyToClipboard(BuildContext context, String text) {
     Clipboard.setData(ClipboardData(text: text));
     Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Copied to clipboard'),
-      ),
-    );
+
+    Fluttertoast.showToast(
+        msg: 'Copied to clipboard',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   List<String> splitString(String input, String delimiter) {

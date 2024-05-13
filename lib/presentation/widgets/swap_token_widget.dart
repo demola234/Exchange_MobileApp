@@ -1,6 +1,7 @@
 import 'package:exchange_mobile/core/constants/color_constants.dart';
 import 'package:exchange_mobile/core/constants/fonts_constants.dart';
 import 'package:exchange_mobile/core/constants/property_constants.dart';
+import 'package:exchange_mobile/presentation/notifier/controller/get_amount_value.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/swap_quote_controller.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/token_controller.dart';
 import 'package:exchange_mobile/presentation/notifier/controller/token_swap_controller.dart';
@@ -114,6 +115,10 @@ class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
                             );
 
                         ref
+                            .read(getAmountValueControllerProvider.notifier)
+                            .updateValue(input);
+
+                        ref
                             .read(swapQuoteControllerProvider.notifier)
                             .swapQuotes(
                                 amount: input,
@@ -147,7 +152,7 @@ class _TokenSwapWidgetState extends ConsumerState<SwapTokenSwapWidget> {
                         });
                   },
                 ),
-           style: FontConstant.appNormalFont.copyWith(
+            style: FontConstant.appNormalFont.copyWith(
               color: ColorConstant.lightSystemColor,
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
